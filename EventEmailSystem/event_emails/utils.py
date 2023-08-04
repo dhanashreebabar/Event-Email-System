@@ -6,8 +6,8 @@ def send_event_emails():
     today = timezone.now().date()
     events = Event.objects.filter(event_date=today,processed=False)
     if not events:
-            print('No events scheduled for today.')
-            return
+        return 'No events scheduled for today.'
+            
 
     for event in events:
         employee = event.employee
@@ -30,17 +30,18 @@ def send_event_emails():
                 )
                 sent_status = True
                 error_message = None
-                break  # Email sent successfully, exit the retry loop
+                return "Email sent successfully"
+                break  
             except Exception as e:
                 sent_status = False
                 error_message = str(e)
                 # Log the error and retry sending the email if retries remain
-                print(f"Error sending email: {error_message}")
+                return "Error sending email: {error_message}"
                 if attempt < retries - 1:
-                    print(f"Retrying... Attempt {attempt + 1}/{retries}")
+                    return "Retrying... Attempt {attempt + 1}/{retries}"
 
             else:
-                print("Email sending failed after retries.")
+                return "Email sending failed after retries."
                     
         event.processed = True
         event.save()
