@@ -9,8 +9,8 @@ from rest_framework import generics
 class SendEventEmailsView(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            send_event_emails()  
-            return Response({'message': 'Event emails sent successfully'}, status=status.HTTP_200_OK)
+            result_message = send_event_emails()  
+            return Response({'message': result_message}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
