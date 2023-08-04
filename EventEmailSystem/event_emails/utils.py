@@ -30,7 +30,6 @@ def send_event_emails():
                 )
                 sent_status = True
                 error_message = None
-                return "Email sent successfully"
                 break  
             except Exception as e:
                 sent_status = False
@@ -53,3 +52,5 @@ def send_event_emails():
             error_message=error_message,
             timestamp=timezone.now() if sent_status else None
         )
+    return "Email sent successfully"    
+        
